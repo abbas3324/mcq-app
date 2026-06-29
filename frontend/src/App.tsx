@@ -3,13 +3,21 @@ import Upload from './pages/Upload'
 import Exam from './pages/Exam'
 import Review from './pages/Review'
 
+export type Question = {
+  id: number
+  question: string
+  type: string
+  correct: string
+  options: string[]
+}
+
 export default function App(){
-  const [view, setView] = React.useState('upload')
-  const [questions, setQuestions] = React.useState([])
-  const [answers, setAnswers] = React.useState({})
+  const [view, setView] = React.useState<'upload' | 'exam' | 'review'>('upload')
+  const [questions, setQuestions] = React.useState<Question[]>([])
+  const [answers, setAnswers] = React.useState<Record<number, string>>({})
   const [settings, setSettings] = React.useState({ numQuestions: 20, timePerQuestion: 60 })
 
-  const handleFinish = (ans) =>{
+  const handleFinish = (ans: Record<number, string>) => {
     setAnswers(ans || {})
     setView('review')
   }
